@@ -11,6 +11,8 @@ namespace Kite.DevOps.EntityFrameworkCore
     {
 
         #region Entities from the modules
+        public DbSet<ServerInfo> ServerInfos { get; set; }
+        public DbSet<ServerGroup> ServerGroups { get; set; }
         public DbSet<Administrator> Administrators { get; set; }
         #endregion
         
