@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <DocumentationFile>Kite.DevOps.Application.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Ddd.Application" Version="5.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kite.DevOps.Application.Contracts\Kite.DevOps.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Kite.DevOps.Domain\Kite.DevOps.Domain.csproj" />
+    <ProjectReference Include="..\Kite.DevOps.EntityFrameworkCore\Kite.DevOps.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kite.DevOps.EntityFrameworkCore", "src\Kite.DevOps.EntityFrameworkCore\Kite.DevOps.EntityFrameworkCore.csproj", "{22772D7B-C655-491D-8CED-3DD6961D59F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kite.DevOps.Application", "src\Kite.DevOps.Application\Kite.DevOps.Application.csproj", "{FCECED16-7C02-47CC-A325-5D710C9C57D7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kite.DevOps.Domain", "src\Kite.DevOps.Domain\Kite.DevOps.Domain.csproj", "{28CE009E-4E3D-4F06-9811-9A083637A5DC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kite.DevOps.Domain.Shared", "src\Kite.DevOps.Domain.Shared\Kite.DevOps.Domain.Shared.csproj", "{C8BF159F-19BC-4E05-BA6C-BD3BB1D4A397}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kite.DevOps.Application.Contracts", "src\Kite.DevOps.Application.Contracts\Kite.DevOps.Application.Contracts.csproj", "{3AD0C5A2-0357-4F89-8B67-52F25EC0F343}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kite.DevOps.Blazor", "src\Kite.DevOps.Blazor\Kite.DevOps.Blazor.csproj", "{B0132CF6-37CC-4129-B0CC-4B4C368E2EEF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22772D7B-C655-491D-8CED-3DD6961D59F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22772D7B-C655-491D-8CED-3DD6961D59F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22772D7B-C655-491D-8CED-3DD6961D59F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22772D7B-C655-491D-8CED-3DD6961D59F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCECED16-7C02-47CC-A325-5D710C9C57D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCECED16-7C02-47CC-A325-5D710C9C57D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCECED16-7C02-47CC-A325-5D710C9C57D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCECED16-7C02-47CC-A325-5D710C9C57D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28CE009E-4E3D-4F06-9811-9A083637A5DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28CE009E-4E3D-4F06-9811-9A083637A5DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28CE009E-4E3D-4F06-9811-9A083637A5DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28CE009E-4E3D-4F06-9811-9A083637A5DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8BF159F-19BC-4E05-BA6C-BD3BB1D4A397}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8BF159F-19BC-4E05-BA6C-BD3BB1D4A397}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8BF159F-19BC-4E05-BA6C-BD3BB1D4A397}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8BF159F-19BC-4E05-BA6C-BD3BB1D4A397}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AD0C5A2-0357-4F89-8B67-52F25EC0F343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AD0C5A2-0357-4F89-8B67-52F25EC0F343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AD0C5A2-0357-4F89-8B67-52F25EC0F343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AD0C5A2-0357-4F89-8B67-52F25EC0F343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0132CF6-37CC-4129-B0CC-4B4C368E2EEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0132CF6-37CC-4129-B0CC-4B4C368E2EEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0132CF6-37CC-4129-B0CC-4B4C368E2EEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0132CF6-37CC-4129-B0CC-4B4C368E2EEF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {43E3871F-1034-4291-B5C2-FA50167CC09D}
+	EndGlobalSection
+EndGlobal
