@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.SqlServer;
+using Volo.Abp.EntityFrameworkCore.MySQL;
 using Volo.Abp.Modularity;
 using Volo.Abp;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +15,7 @@ namespace Kite.DevOps.EntityFrameworkCore
 {
     [DependsOn(
         typeof(DomainModule),
-        typeof(AbpEntityFrameworkCoreSqlServerModule)
+        typeof(AbpEntityFrameworkCoreMySQLModule)
         )]
     public class EntityFrameworkCoreModule: AbpModule
     {
@@ -23,7 +23,7 @@ namespace Kite.DevOps.EntityFrameworkCore
         {
             Configure<AbpDbContextOptions>(options =>
             {
-                options.UseSqlServer();
+                options.UseMySQL();
             });
             context.Services.AddAbpDbContext<KiteDbContext>(options =>
             {
