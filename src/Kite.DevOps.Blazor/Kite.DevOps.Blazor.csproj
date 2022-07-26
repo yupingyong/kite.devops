@@ -28,6 +28,7 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Pages\Server\" />
+    <Folder Include="database\" />
   </ItemGroup>
 
 </Project>
