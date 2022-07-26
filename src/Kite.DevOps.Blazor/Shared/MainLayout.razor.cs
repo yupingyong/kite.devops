@@ -82,6 +82,35 @@ public sealed partial class MainLayout
                         }
                    }
                }
+               , new MenuItem()
+               {
+                   Text ="服务器管理",
+                   Icon ="fa fa-gear",
+                   Url = "",
+                   Id = "1",
+                   Items = new List<MenuItem>()
+                   {
+
+                       new MenuItem()
+                        {
+                            Text = "服务器组",
+                            Icon = "fa fa-user",
+                            Url = "/Server/Group"
+                        },
+                       new MenuItem()
+                        {
+                            Text = "服务器",
+                            Icon = "fa fa-user",
+                            Url = "/Server"
+                        },
+                       new MenuItem()
+                        {
+                            Text = "控制台",
+                            Icon = "fa fa-user",
+                            Url = "/Server/Console"
+                        }
+                   }
+               }
             };
 
         return menus;
