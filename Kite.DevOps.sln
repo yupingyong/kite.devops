@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kite.DevOps.Domain.Shared",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kite.DevOps.Application.Contracts", "src\Kite.DevOps.Application.Contracts\Kite.DevOps.Application.Contracts.csproj", "{3AD0C5A2-0357-4F89-8B67-52F25EC0F343}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kite.DevOps.Blazor", "src\Kite.DevOps.Blazor\Kite.DevOps.Blazor.csproj", "{B0132CF6-37CC-4129-B0CC-4B4C368E2EEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kite.DevOps.Blazor", "src\Kite.DevOps.Blazor\Kite.DevOps.Blazor.csproj", "{B0132CF6-37CC-4129-B0CC-4B4C368E2EEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

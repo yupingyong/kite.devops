@@ -29,10 +29,9 @@ public sealed partial class MainLayout
 
     [Inject]
     private AuthorizationServerStorage ServerStorage { get; set; }
-
-    [Inject]
-    private NavigationManager NavigationManager { get; set; }
-
+    /// <summary>
+    /// 
+    /// </summary>
     private AdministratorDto Administrator { get; set; }
     /// <summary>
     /// OnInitialized 方法
@@ -41,15 +40,19 @@ public sealed partial class MainLayout
     {
         base.OnInitialized();
         //如果没有登录则跳转到登录页面
-        if (!ServerStorage.IsLogin())
+        if (ServerStorage.IsLogin())
         {
-            NavigationManager.NavigateTo("/Login");
+            Administrator = ServerStorage.GetServerStorage();
         }
-        //
-        Administrator = ServerStorage.GetServerStorage();
-        if (Administrator == null)
+        else
         {
-            NavigationManager.NavigateTo("/Login");
+            //
+            Administrator = new AdministratorDto()
+            {
+                AdminName = "未登录",
+                NickName = "未登录",
+                Id = Guid.Empty
+            };
         }
         Menus = GetIconSideMenuItems();
     }

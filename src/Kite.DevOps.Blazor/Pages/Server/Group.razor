@@ -1,0 +1,145 @@
+﻿@page "/Server/Group"
+
+@using Kite.DevOps.Application.Contracts.Server
+@using Kite.DevOps.Application.Contracts.Server.Dtos
+@using Mapster
+@using Kite.DevOps.Domain.Shared.Enums
+@inject ToastService toastService
+@inject IServerGroupAppService serverGroupAppService
+
+<div class="row">
+    <div class="col=12">
+        <Button OnClick="@OnAddAsync" Color="Color.Primary">添加服务器组</Button>
+    </div>
+</div>
+<div class="row" style="margin-top:10px;">
+    <table class="table">
+      <thead class="table-light">
+        <tr>
+            <th>服务器组名称</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+          @if(ServerGroups!=null&&ServerGroups.Any())
+          {
+              foreach(var item in ServerGroups)
+              {
+                <tr>
+                    <td>@item.GroupName</td>
+                    <td>@item.Created</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <Button Color="Color.Info" Size="Size.ExtraSmall" OnClick="@(e=>OnUpdateAsync(item.Id))">编辑</Button>
+                            <PopConfirmButton  Size="Size.ExtraSmall" Placement="Placement.Bottom" Color="Color.Danger" ConfirmIcon="fa fa-exclamation-triangle text-danger"
+                  ConfirmButtonColor="Color.Danger" Text="删除" Content="确定删除数据吗？" Icon="fa fa-fa fa-fw" IsAsync="true"
+                  OnConfirm="@(()=>OnDeleteAsync(item.Id))" />
+                        </div>
+                    </td>
+                </tr>
+              }
+            }
+        </tbody>
+    </table>
+    
+</div>
+
+<Modal @ref="Modal">
+    <ModalDialog  IsScrolling="true" Title="添加服务器组" IsCentered="true" Size="Size.Large" ShowCloseButton="false">
+        <BodyTemplate >
+          <NewGroup OnClickCallback="OnAddCallbackAsync"></NewGroup>
+        </BodyTemplate>
+    </ModalDialog>
+</Modal>
+
+<Modal @ref="UpdateModal">
+    <ModalDialog  IsScrolling="true" Title="服务器组编辑" IsCentered="true" Size="Size.Large" ShowCloseButton="false">
+        <BodyTemplate >
+           <UpdateGroup Model="@UpdateModel" OnClickCallback="OnUpdateCallbackAsync"></UpdateGroup>
+        </BodyTemplate>
+    </ModalDialog>
+</Modal>
+
+@code {
+    private Modal Modal;
+
+    private Modal UpdateModal;
+
+    public UpdateServerGroupDto UpdateModel { get; set; }
+    //分页数据
+
+    private List<ServerGroupDto>? ServerGroups { get; set; }
+
+    private int TotalCount { get; set; } = 0;
+    private int PageSize { get; set; } = 10;
+    private int PageIndex { get; set; } = 1;
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        OnQueryAsync();
+        base.OnInitialized();
+    }
+    #region 管理员编辑更新
+    private async void OnUpdateAsync(Guid id)
+    {
+        UpdateModel= await GetAsync(id);
+        await UpdateModal.Toggle();
+    }
+    private async Task<UpdateServerGroupDto> GetAsync(Guid id)
+    {
+        var result = await serverGroupAppService.GetAsync(id);
+        if (result.Code != 0 || result.Data == null)
+        {
+            await toastService.Warning("系统警告", "数据不存在");
+        }
+        var model= TypeAdapter.Adapt<UpdateServerGroupDto>(result.Data);
+        return model;
+    }
+    private async void OnUpdateCallbackAsync()
+    {
+        await UpdateModal.Close();
+        OnQueryAsync();
+    }
+    #endregion
+    #region 新增管理员
+    private async void OnAddAsync()
+    {
+        await Modal.Toggle();
+    }
+    private async void OnAddCallbackAsync()
+    {
+        await Modal.Close();
+        OnQueryAsync();
+    }
+    #endregion
+    private async Task OnDeleteAsync(Guid id)
+    {
+        var result= await serverGroupAppService.DeleteAsync(id);
+        if (result.Code == 0)
+        {
+            OnQueryAsync();
+            await toastService.Success("系统通知","数据删除成功!");
+            return;
+        }
+        await toastService.Warning("系统警告","数据删除失败");
+    }
+
+    private async void OnQueryAsync()
+    {
+        var result = await serverGroupAppService.GetListAsync();
+
+        if (result.Code == 0)
+        {
+            ServerGroups = result.Data;
+            StateHasChanged();
+        }
+        else
+        {
+            await toastService.Warning("系统警告", "数据加载失败");
+        }
+    }
+
+}

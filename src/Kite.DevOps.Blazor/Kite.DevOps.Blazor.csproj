@@ -26,9 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="Pages\Server\" />
-    <Folder Include="database\" />
+    <Folder Include="data\" />
   </ItemGroup>
 
 </Project>

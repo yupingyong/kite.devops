@@ -1,0 +1,53 @@
+﻿
+@using Kite.DevOps.Application.Contracts.Server
+@using Kite.DevOps.Application.Contracts.Server.Dtos
+@inject ToastService toastService
+@inject IServerGroupAppService serverGroupAppService
+
+<div class="row">
+    <ValidateForm Model="@Model" OnValidSubmit="@OnSaveAsync" OnInvalidSubmit="@OnInvalidSubmitAsync">
+            <div class="col-12">
+                   <BootstrapInput @bind-Value="Model.GroupName" DisplayText="服务器组名" IsTrim="true" />
+             </div>
+            <div class="row" style="margin-top:10px;">
+                <div class="col-12">
+                    <Button ButtonType="ButtonType.Submit"  IsAsync="true" Color="Color.Primary">保 存</Button>
+                </div>
+            </div>
+    </ValidateForm>
+</div>
+
+
+@code {
+    
+    [Parameter]
+    public EventCallback OnClickCallback { get; set; }
+    //表单数据
+    private CreateServerGroupDto Model { get; set; }
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Model = new CreateServerGroupDto();
+    }
+    private Task OnInvalidSubmitAsync(EditContext context)
+    {
+        return Task.CompletedTask;
+    }
+    private async Task OnSaveAsync(EditContext context)
+    {
+        var result= await serverGroupAppService.CreateAsync(Model);
+        if (result.Code != 0)
+        {
+            await toastService.Warning(result.Message);
+        }
+        else
+        {
+            await OnClickCallback.InvokeAsync();
+            await toastService.Success("保存成功");
+            Model = new CreateServerGroupDto();
+        }
+    }
+}
