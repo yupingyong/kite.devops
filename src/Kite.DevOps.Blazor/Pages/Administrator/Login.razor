@@ -6,10 +6,10 @@
 @using Kite.DevOps.Application.Contracts.Administrator.Dtos
 @using Mapster
 @using Kite.DevOps.Domain.Shared.Enums
-@inject ToastService ToastService
-@inject NavigationManager NavigationManager
-@inject IAdministratorAppService AdministratorAppService
-@inject AuthorizationServerStorage AuthorizationServerStorage
+@inject ToastService toastService
+@inject NavigationManager navigationManager
+@inject IAdministratorAppService administratorAppService
+@inject AuthorizationServerStorage authorizationServerStorage
 
 
 <main class="form-signin text-center">
@@ -52,29 +52,29 @@
         {
             if (string.IsNullOrEmpty(LoginAdministrator.AdminName) || LoginAdministrator.AdminName.Trim() == "")
             {
-                await ToastService.Warning("系统警告","管理员账号名不能为空");
+                await toastService.Warning("系统警告","管理员账号名不能为空");
                 return;
             }
             if (string.IsNullOrEmpty(LoginAdministrator.Password) || LoginAdministrator.Password.Trim() == "")
             {
-                await ToastService.Warning("系统警告","管理员密码不能为空");
+                await toastService.Warning("系统警告","管理员密码不能为空");
                 return;
             }
-            var result = await AdministratorAppService.LoginAsync(LoginAdministrator);
+            var result = await administratorAppService.LoginAsync(LoginAdministrator);
             if (result.Code != 0)
             {
-                await ToastService.Warning("系统警告",result.Message);
+                await toastService.Warning("系统警告",result.Message);
             }
             else
             {
-                AuthorizationServerStorage.SetServerStorage(result.Data);
-                NavigationManager.NavigateTo("/");
+                authorizationServerStorage.SetServerStorage(result.Data);
+                navigationManager.NavigateTo("/");
             }
             await Task.CompletedTask;    
         }
         catch (Exception ex)
         {
-            await ToastService.Warning("系统警告", ex.Message);
+            await toastService.Warning("系统警告", ex.Message);
         }
     }
 }

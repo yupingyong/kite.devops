@@ -1,8 +1,8 @@
 ﻿
 @using Kite.DevOps.Application.Contracts.Administrator
 @using Kite.DevOps.Application.Contracts.Administrator.Dtos
-@inject ToastService ToastService
-@inject IAdministratorAppService AdministratorAppService
+@inject ToastService toastService
+@inject IAdministratorAppService administratorAppService
 
 <div class="row">
     <ValidateForm Model="@Model" OnValidSubmit="@OnSaveAsync" OnInvalidSubmit="@OnInvalidSubmitAsync">
@@ -44,15 +44,15 @@
     }
     private async Task OnSaveAsync(EditContext context)
     {
-        var result= await AdministratorAppService.CreateAsync(Model);
+        var result= await administratorAppService.CreateAsync(Model);
         if (result.Code != 0)
         {
-            await ToastService.Warning(result.Message);
+            await toastService.Warning(result.Message);
         }
         else
         {
             await OnClickCallback.InvokeAsync();
-            await ToastService.Success("保存成功");
+            await toastService.Success("保存成功");
             Model = new CreateAdministratorDto();
         }
     }

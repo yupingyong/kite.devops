@@ -4,9 +4,9 @@
 @using Kite.DevOps.Blazor.Core
 @using Mapster
 @using Kite.DevOps.Domain.Shared.Enums
-@inject ToastService ToastService
-@inject NavigationManager NavigationManager
-@inject AuthorizationServerStorage AuthorizationServerStorage
+@inject ToastService toastService
+@inject NavigationManager navigationManager
+@inject AuthorizationServerStorage authorizationServerStorage
 
 
 <main class="form-signin text-center">
@@ -22,16 +22,16 @@
     {
         base.OnInitialized();
         //如果没有登录则跳转到登录页面
-        if (!AuthorizationServerStorage.IsLogin())
+        if (!authorizationServerStorage.IsLogin())
         {
-            NavigationManager.NavigateTo("/Login");
+            navigationManager.NavigateTo("/Login");
         }
         else
         {
             //清理服务器登录存储信息
-            AuthorizationServerStorage.DeleteServerStorage();
+            authorizationServerStorage.DeleteServerStorage();
             //跳转到登录页面
-            NavigationManager.NavigateTo("/Login");
+            navigationManager.NavigateTo("/Login");
            
         }
     }

@@ -1,47 +1,60 @@
-﻿@page "/Administrator"
+﻿@page "/Server"
 
-@using Kite.DevOps.Application.Contracts.Administrator
-@using Kite.DevOps.Application.Contracts.Administrator.Dtos
+@using Kite.DevOps.Application.Contracts.Server
+@using Kite.DevOps.Application.Contracts.Server.Dtos
 @using Mapster
 @using Kite.DevOps.Domain.Shared.Enums
 @inject ToastService toastService
-@inject IAdministratorAppService administratorAppService
+@inject IServerAppService serverAppService
 
 <div class="row">
     <div class="col=12">
-        <Button OnClick="@OnAddAsync" Color="Color.Primary">添加管理员</Button>
+        <Button OnClick="@OnAddAsync" Color="Color.Primary">添加服务器</Button>
     </div>
 </div>
 <div class="row" style="margin-top:10px;">
     <table class="table">
       <thead class="table-light">
         <tr>
-            <th>管理员名</th>
-            <th>昵称</th>
+            <th>服务器名</th>
+            <th>服务器组名</th>
+            <th>服务器主机</th>
+            <th>端口号</th>
+            <th>用户名</th>
+            <th>密码</th>
+            <th>容器编排版本</th>
+            <th>系统标签</th>
+            <th>备注信息</th>
             <th>创建时间</th>
-            <th>更新时间</th>
+           
             <th>操作</th>
         </tr>
       </thead>
       <tbody>
-          @if(Administrators!=null&&Administrators.Any())
-          {
-              foreach(var item in Administrators)
-              {
-                <tr>
-                    <td>@item.AdminName</td>
-                    <td>@item.NickName</td>
-                    <td>@item.Created</td>
-                    <td>@item.Updated</td>
-                    <td>
-                        <div class="btn-group" role="group">
-                            <Button Color="Color.Info" Size="Size.ExtraSmall" OnClick="@(e=>OnUpdateAsync(item.Id))">编辑</Button>
-                            <PopConfirmButton  Size="Size.ExtraSmall" Placement="Placement.Bottom" Color="Color.Danger" ConfirmIcon="fa fa-exclamation-triangle text-danger"
-                  ConfirmButtonColor="Color.Danger" Text="删除" Content="确定删除数据吗？" Icon="fa fa-fa fa-fw" IsAsync="true"
-                  OnConfirm="@(()=>OnDeleteAsync(item.Id))" />
-                        </div>
-                    </td>
-                </tr>
+            @if (Servers != null && Servers.Any())
+            {
+                foreach (var item in Servers)
+                {
+                    <tr>
+                        <td>@item.ServerName</td>
+                        <td>@item.GroupName</td>
+                        <td>@item.Host</td>
+                        <td>@item.Port</td>
+                        <td>@item.UserName</td>
+                        <td>@item.Password</td>
+                        <td>@(item.DockerComposeVersion==DockerComposeVersionEnum.V1?"V1":"V2") </td>
+                        <td>@item.SystemTag</td>
+                        <td>@item.Remarks</td>
+                        <td>@item.Created</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <Button Color="Color.Info" Size="Size.ExtraSmall" OnClick="@(e=>OnUpdateAsync(item.Id))">编辑</Button>
+                                <PopConfirmButton  Size="Size.ExtraSmall" Placement="Placement.Bottom" Color="Color.Danger" ConfirmIcon="fa fa-exclamation-triangle text-danger"
+                      ConfirmButtonColor="Color.Danger" Text="删除" Content="确定删除数据吗？" Icon="fa fa-fa fa-fw" IsAsync="true"
+                      OnConfirm="@(()=>OnDeleteAsync(item.Id))" />
+                            </div>
+                        </td>
+                    </tr>
               }
             }
         </tbody>
@@ -53,17 +66,17 @@
 </div>
 
 <Modal @ref="Modal">
-    <ModalDialog  IsScrolling="true" Title="添加管理员" IsCentered="true" Size="Size.Large" ShowCloseButton="false">
+    <ModalDialog  IsScrolling="true" Title="添加服务器" IsCentered="true" Size="Size.Large" ShowCloseButton="false">
         <BodyTemplate >
-          <NewAdministrator OnClickCallback="OnAddCallbackAsync"></NewAdministrator>
+          @*<NewServer OnClickCallback="OnAddCallbackAsync"></NewServer>*@
         </BodyTemplate>
     </ModalDialog>
 </Modal>
 
 <Modal @ref="UpdateModal">
-    <ModalDialog  IsScrolling="true" Title="管理员编辑" IsCentered="true" Size="Size.Large" ShowCloseButton="false">
+    <ModalDialog  IsScrolling="true" Title="服务器编辑" IsCentered="true" Size="Size.Large" ShowCloseButton="false">
         <BodyTemplate >
-           <UpdateAdministrator Model="@UpdateModel" OnClickCallback="OnUpdateCallbackAsync"></UpdateAdministrator>
+           @*<UpdateServer Model="@UpdateModel" OnClickCallback="OnUpdateCallbackAsync"></UpdateServer>*@
         </BodyTemplate>
     </ModalDialog>
 </Modal>
@@ -73,10 +86,10 @@
 
     private Modal UpdateModal;
 
-    public UpdateAdministratorDto UpdateModel { get; set; }
+    public UpdateServerDto UpdateModel { get; set; }
     //分页数据
 
-    private List<AdministratorDto>? Administrators { get; set; }
+    private List<ServerDto>? Servers { get; set; }
 
     private int TotalCount { get; set; } = 0;
     private int PageSize { get; set; } = 10;
@@ -95,14 +108,14 @@
         UpdateModel= await GetAsync(id);
         await UpdateModal.Toggle();
     }
-    private async Task<UpdateAdministratorDto> GetAsync(Guid id)
+    private async Task<UpdateServerDto> GetAsync(Guid id)
     {
-        var result = await administratorAppService.GetAsync(id);
+        var result = await serverAppService.GetAsync(id);
         if (result.Code != 0 || result.Data == null)
         {
             await toastService.Warning("系统警告", "数据不存在");
         }
-        var model= TypeAdapter.Adapt<UpdateAdministratorDto>(result.Data);
+        var model= TypeAdapter.Adapt<UpdateServerDto>(result.Data);
         return model;
     }
     private async void OnUpdateCallbackAsync()
@@ -124,7 +137,7 @@
     #endregion
     private async Task OnDeleteAsync(Guid id)
     {
-        var result= await administratorAppService.DeleteAsync(id);
+        var result= await serverAppService.DeleteAsync(id);
         if (result.Code == 0)
         {
             OnQueryAsync();
@@ -150,11 +163,11 @@
 
     private async void OnQueryAsync()
     {
-        var result = await administratorAppService.GetListAsync(PageIndex, PageSize);
+        var result = await serverAppService.GetListAsync(null, "", PageIndex, PageSize);
 
         if (result.Code == 0)
         {
-            Administrators = result.Data;
+            Servers = result.Data;
             TotalCount = result.Count;
             StateHasChanged();
         }

@@ -17,7 +17,7 @@ namespace Kite.DevOps.Application.Contracts.Server
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        Task<KiteResult<List<ServerDto>>> GetListAsync(Guid? groupId,string kw = "", int page = 1, int pageSize = 10);
+        Task<KitePageResult<List<ServerDto>>> GetListAsync(Guid? groupId,string kw = "", int page = 1, int pageSize = 10);
         /// <summary>
         /// 获取服务器详情信息
         /// </summary>
