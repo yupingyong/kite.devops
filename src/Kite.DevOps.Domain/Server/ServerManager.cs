@@ -20,7 +20,7 @@ namespace Kite.DevOps.Domain.Server
         }
 
 
-        public async Task<IQueryable<TResult>> GetQueryAsync<TResult>() where TResult : class, new()
+        public async Task<IQueryable<dynamic>> GetQueryAsync()
         {
             var query = (await _repository.GetQueryableAsync())
                 .Join(await _groupRepository.GetQueryableAsync(), x => x.GroupId, y => y.Id, (x, y) => new 
@@ -36,8 +36,7 @@ namespace Kite.DevOps.Domain.Server
                     SystemTag=x.SystemTag,
                     DockerComposeVersion=x.DockerComposeVersion,
                     Remarks=x.Remarks
-                })
-                .ProjectToType<TResult>();
+                });
             return query;
         }
     }
