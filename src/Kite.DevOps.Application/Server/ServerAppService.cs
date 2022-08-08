@@ -44,15 +44,14 @@ namespace Kite.DevOps.Application.Server
 
         public async Task<KiteResult<ServerDto>> GetAsync(Guid id)
         {
-            var query = (await _serverManager.GetQueryAsync()).ProjectToType<ServerDto>();
+            var query = await _serverManager.GetQueryAsync<ServerDto>();
             return Ok(query.FirstOrDefault(x => x.Id == id));
         }
 
         public async Task<KitePageResult<List<ServerDto>>> GetListAsync(Guid? groupId, string kw = "", int page = 1, int pageSize = 10)
         {
-            var query = (await _serverManager.GetQueryAsync())
-                .ProjectToType<ServerDto>();
-            query = query.WhereIf(groupId.HasValue, x => x.GroupId == groupId)
+            var query = (await _serverManager.GetQueryAsync<ServerDto>())
+                .WhereIf(groupId.HasValue, x => x.GroupId == groupId)
                 .WhereIf(!string.IsNullOrEmpty(kw) && kw != "", x => x.ServerName.Contains(kw) || x.Host.Contains(kw));
             var count = query.Count();
             var result = query.OrderByDescending(x => x.Created)

@@ -13,6 +13,6 @@ namespace Kite.DevOps.Domain.Server
         /// 获取查询对象
         /// </summary>
         /// <returns></returns>
-        Task<IQueryable<dynamic>> GetQueryAsync();
+        Task<IQueryable<TResult>> GetQueryAsync<TResult>() where TResult : class, new();
     }
 }
