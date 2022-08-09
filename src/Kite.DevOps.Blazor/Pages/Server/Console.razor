@@ -1,47 +1,73 @@
 ﻿@page "/Server/Console"
-@inherits LayoutComponentBase
+@using Kite.DevOps.Application.Contracts.Server
+@using Kite.DevOps.Application.Contracts.Server.Dtos
+@using Mapster
+@using Kite.DevOps.Domain.Shared.Enums
+@inject ToastService toastService
+@inject IServerAppService serverAppService
+@inject IServerGroupAppService serverGroupAppService
 
-<Layout SideWidth="0" IsPage="true" ShowGotoTop="true" ShowCollapseBar="true"
-        IsFullSide="true" IsFixedHeader="true" IsFixedFooter="true" ShowFooter="false"
-        TabDefaultUrl="/"
-        Menus="@Menus"  UseTabSet="true" AdditionalAssemblies="new[] { GetType().Assembly }">
+
+<Layout SideWidth="220px" style="min-height: 180px; border: 1px solid #ddd; border-radius: 4px;">
     <Header>
-        <span class="ms-3 flex-sm-fill d-none d-sm-block">Kite DevOps管理平台</span>
-        <div class="flex-fill d-sm-none">
-        </div>
-        <Logout ImageUrl="images/kitelogo.png" DisplayName="@(Administrator.NickName)" UserName="@(Administrator.AdminName)">
-            <LinkTemplate>
-                <LogoutLink Url="/Logout" />
-            </LinkTemplate>
-        </Logout>
+        <div class="header">控制台</div>
     </Header>
     <Side>
-        <div class="layout-banner">
-            <div class="layout-title">
-                <span>后台管理</span>
-            </div>
+        <div style="border-right: 1px solid #e6e6e6; height: 100%; overflow: auto; padding: 1rem 0;">
+            <Menu Items="@MenuItems" IsVertical="true" OnClick="@OnClickMenuItem" @ref="TabMenu" />
         </div>
     </Side>
     <Main>
-        <CascadingValue Value="this" IsFixed="true">
-            @Body
-        </CascadingValue>
-    </Main>
-    <Footer>
-        <div class="text-center flex-fill">
-            
+        <div class="tab-main-demo">
+            <Tab @ref="TabSetMenu" ShowClose="true">
+            </Tab>
         </div>
-    </Footer>
-    <NotFound>
-        <p>Sorry, there's nothing at this address.</p>
-    </NotFound>
+    </Main>
 </Layout>
 
 @code {
-    private IEnumerable<MenuItem>? IconSideMenuItems { get; set; }
-    protected override void OnInitialized()
+
+    private Tab? TabSetMenu { get; set; }
+    private Menu? TabMenu { get; set; }
+
+    private List<MenuItem> MenuItems { get; set; } = new List<MenuItem>();
+    protected override async void OnInitialized()
     {
         base.OnInitialized();
+        var serverGroups = await serverGroupAppService.GetListAsync();
+        var servers = await serverAppService.GetListAsync();
+        foreach (var g in serverGroups.Data)
+        {
+            MenuItems.Add(new MenuItem()
+                {
+                    Text = g.GroupName,
+                    Items = servers.Data.Where(x => x.GroupId == g.Id)
+                        .Select(x => new MenuItem()
+                        {
+                            Text = x.ServerName
+                        })
+                        .ToList()
+                });      
+        }
     }
-
+    private Task OnClickMenuItem(MenuItem item)
+    {
+        var text = item.Text;
+        var tabItem = TabSetMenu.Items.FirstOrDefault(i => i.Text == text);
+        if (tabItem == null)
+        {
+            AddTabItem(text ?? "");
+        }
+        else
+        {
+            TabSetMenu.ActiveTab(tabItem);
+        }
+        return Task.CompletedTask;
+    }
+    private void AddTabItem(string text) => TabSetMenu.AddTab(new Dictionary<string, object?>
+    {
+        [nameof(TabItem.Text)] = text,
+        [nameof(TabItem.IsActive)] = true,
+        [nameof(TabItem.ChildContent)] = BootstrapDynamicComponent.CreateComponent<BootstrapBlazor.Components.Console>().Render()
+    });
 }

@@ -11,6 +11,11 @@ namespace Kite.DevOps.Application.Contracts.Server
     public interface IServerAppService : IApplicationService
     {
         /// <summary>
+        /// 获取所有服务器列表
+        /// </summary>
+        /// <returns></returns>
+        Task<KiteResult<List<ServerDto>>> GetListAsync();
+        /// <summary>
         /// 获取服务器列表
         /// </summary>
         /// <param name="kw">关键字(服务器名、服务器主机名)</param>

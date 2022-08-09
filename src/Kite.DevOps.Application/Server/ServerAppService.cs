@@ -60,6 +60,14 @@ namespace Kite.DevOps.Application.Server
             return Ok(result, count);
         }
 
+        public async Task<KiteResult<List<ServerDto>>> GetListAsync()
+        {
+            var result = (await _serverManager.GetQueryAsync<ServerDto>())
+                .OrderByDescending(x => x.Created)
+                .ToList();
+            return Ok(result);
+        }
+
         public async Task<KiteResult> UpdateAsync(UpdateServerDto updateServer)
         {
             var model = await _repository.FirstOrDefaultAsync(x => x.Id == updateServer.Id);
