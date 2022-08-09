@@ -1,9 +1,10 @@
 ﻿@page "/Server/Console"
+@inherits LayoutComponentBase
 
 <Layout SideWidth="0" IsPage="true" ShowGotoTop="true" ShowCollapseBar="true"
-        IsFullSide="@IsFullSide" IsFixedHeader="@IsFixedHeader" IsFixedFooter="@IsFixedFooter" ShowFooter="@ShowFooter"
+        IsFullSide="true" IsFixedHeader="true" IsFixedFooter="true" ShowFooter="false"
         TabDefaultUrl="/"
-        Menus="@Menus"  UseTabSet="@UseTabSet" AdditionalAssemblies="new[] { GetType().Assembly }" class="@Theme">
+        Menus="@Menus"  UseTabSet="true" AdditionalAssemblies="new[] { GetType().Assembly }">
     <Header>
         <span class="ms-3 flex-sm-fill d-none d-sm-block">Kite DevOps管理平台</span>
         <div class="flex-fill d-sm-none">
