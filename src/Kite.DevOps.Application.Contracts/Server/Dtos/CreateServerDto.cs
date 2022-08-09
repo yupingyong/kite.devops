@@ -40,16 +40,16 @@ namespace Kite.DevOps.Application.Contracts.Server.Dtos
         /// </summary>
         [Required]
         public string Password { get; set; }
-        /// <summary>
-        /// 系统标签
-        /// </summary>
-        [Required]
-        public string SystemTag { get; set; }
+        
         /// <summary>
         /// 容器编排版本
         /// </summary>
         [Required]
         public DockerComposeVersionEnum DockerComposeVersion { get; set; }
+        /// <summary>
+        /// 系统标签
+        /// </summary>
+        public string SystemTag { get; set; }
         /// <summary>
         /// 备注信息
         /// </summary>
