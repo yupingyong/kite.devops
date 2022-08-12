@@ -1,0 +1,73 @@
+﻿@page "/Server/Console/{Id:guid}"
+@layout ConsoleLayout
+
+@using Kite.DevOps.Domain.Server
+@using Kite.DevOps.Application.Contracts.Server
+@using Kite.DevOps.Application.Contracts.Server.Dtos
+@using Mapster
+@using Kite.DevOps.Domain.Shared.Enums
+@inject ToastService toastService
+@inject IServerAppService serverAppService
+@inject IServerGroupAppService serverGroupAppService
+@inject IServerClientManager serverClientManager
+
+
+<Console Items="@ConsoleMessages" HeaderText="@HeaderText" IsAutoScroll="true" style="height:95%;" />
+<BootstrapInput @bind-Value="CommandText" PlaceHolder="请输入命令行" OnEnterAsync="OnEnterAsync" />
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+    //控制台输入信息
+    private List<ConsoleMessageItem> ConsoleMessages { get; set; } = new List<ConsoleMessageItem>();
+    //命令行文本
+    private string CommandText { get; set; }
+
+    private string HeaderText { get; set; }
+
+    public ServerDto Server { get; set; }
+
+    protected async override void OnInitialized()
+    {
+        base.OnInitialized();
+        CommandText = "";
+        var serverResult = await serverAppService.GetAsync(Id);
+        if (serverResult.Code == 0)
+        {
+            Server = serverResult.Data;
+            HeaderText = $"{Server.ServerName}[{Server.Host}]";
+            //连接服务器
+            var connectResult = await serverClientManager.ConnectAsync(Server.Host, Server.Port, Server.UserName, Server.Password);
+            if (connectResult)
+            {
+                ConsoleMessages.Add(new ConsoleMessageItem()
+                    {
+                        Message = "###=> 服务器连接成功"
+                    });
+                StateHasChanged();
+            }
+        }
+    }
+
+    private async Task OnEnterAsync(string val)
+    {
+        ConsoleMessages.Add(new ConsoleMessageItem()
+            {
+                Message = val
+            });
+        CommandText = "";
+        StateHasChanged();
+        var cmdResult= await serverClientManager.RunCommandAsync(val);
+        if (cmdResult.Any())
+        {
+            foreach (var res in cmdResult)
+            {
+                ConsoleMessages.Add(new ConsoleMessageItem()
+                    {
+                        Message = res
+                    });
+            }
+            StateHasChanged();
+        }
+    }
+}

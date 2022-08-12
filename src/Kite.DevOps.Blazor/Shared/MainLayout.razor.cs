@@ -105,12 +105,13 @@ public sealed partial class MainLayout
                             Text = "服务器",
                             Icon = "fa fa-user",
                             Url = "/Server"
-                        },
-                       new MenuItem()
+                        }
+                        ,new MenuItem()
                         {
                             Text = "控制台",
                             Icon = "fa fa-user",
-                            Url = "/Server/Console"
+                            Url = $"/Server/Console/Home",
+                            Target="_blank"
                         }
                    }
                }
