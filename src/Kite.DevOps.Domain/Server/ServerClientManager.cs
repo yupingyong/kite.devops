@@ -2,8 +2,11 @@
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
 
@@ -13,6 +16,21 @@ namespace Kite.DevOps.Domain.Server
     internal class ServerClientManager : ITransientDependency,IServerClientManager
     {
         private SshClient _sshClient;
+        private ShellStream _shellStream;
+        private StreamReader _reader;
+        private StreamWriter _writer;
+
+        public Task CloseShellCommandStreamAsync()
+        {
+            if (_writer != null)
+                _writer.Close();
+            if (_reader != null)
+                _reader.Close();
+            if (_shellStream != null)
+                _shellStream.Close();
+            return Task.CompletedTask;
+        }
+
         public Task<bool> ConnectAsync(string host, int port, string userName, string password)
         {
             return Task.Factory.StartNew(() => 
@@ -37,30 +55,57 @@ namespace Kite.DevOps.Domain.Server
             });
         }
 
-        public Task<List<string>> RunCommandAsync(string commandText)
+        public Task CreateShellCommandStreamAsync()
         {
+            if (_shellStream != null)
+                _shellStream = null;
+            if (_reader != null)
+                _reader = null;
+            if (_writer != null)
+                _writer = null;
+            _shellStream = _sshClient.CreateShellStream(string.Empty, 0, 0, 0, 0, 0);
+            _reader = new StreamReader(_shellStream);
+            _writer = new StreamWriter(_shellStream);
+            _writer.AutoFlush = true;
+            return Task.CompletedTask;
+        }
 
-            return Task.Factory.StartNew(()=>
+        public Task ReadByEndOfAsync(Action<string> action)
+        {
+            try
             {
-                var result = new List<string>();
-                try
+                string line;
+                for (int i = 0; i < 3; i++)
                 {
-                    if (_sshClient == null || !_sshClient.IsConnected)
+                    do
                     {
-                        throw new ArgumentNullException("连接已断开");
-                    }
-                    var cmd = _sshClient.RunCommand(commandText);
-                    var cmdResult = cmd.Result;
-                    result.Add(cmdResult);
-                    return result;
+                        line = _reader.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(line))
+                        {
+                            action(line);
+                        }
+                    } while (!_reader.EndOfStream);
+                    Thread.Sleep(500);
                 }
-                catch (Exception ex)
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+            }
+            return Task.CompletedTask;
+        }
+
+        public Task WriteShellCommandStreamAsync(string command)
+        {
+            if (_writer != null)
+            {
+                _writer.WriteLine(command);
+                while (_shellStream.Length == 0)
                 {
-                    Log.Error(ex, ex.Message);
-                    result.Add(ex.Message);
-                    return result;
+                    Thread.Sleep(500);
                 }
-            });
+            }
+            return Task.CompletedTask;
         }
     }
 }
