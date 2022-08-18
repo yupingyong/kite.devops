@@ -10,10 +10,6 @@ namespace Kite.DevOps.Domain.Entities
 {
     public class Project : Entity<int>
     {
-        public Project() { }
-        public Project(int id) : base(id)
-        {
-        }
         /// <summary>
         /// 项目名称
         /// </summary>

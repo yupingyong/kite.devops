@@ -14,10 +14,6 @@ namespace Kite.DevOps.Domain.Entities
     /// </summary>
     public class ServerInfo : Entity<int>
     {
-        public ServerInfo() { }
-        public ServerInfo(int id) : base(id)
-        {
-        }
         /// <summary>
         /// 服务器名
         /// </summary>
