@@ -14,7 +14,7 @@ namespace Kite.DevOps.Application.Contracts.Server.Dtos
         /// 服务器ID
         /// </summary>
         [Required]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// 服务器名
         /// </summary>
@@ -24,7 +24,7 @@ namespace Kite.DevOps.Application.Contracts.Server.Dtos
         /// 所属服务器组
         /// </summary>
         [Required]
-        public Guid GroupId { get; set; }
+        public int GroupId { get; set; }
         /// <summary>
         /// 服务器主机
         /// </summary>

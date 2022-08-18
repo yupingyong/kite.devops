@@ -12,20 +12,21 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Kite.DevOps.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(KiteDbContext))]
-    [Migration("20220806144835_Migration_v0.1.1")]
-    partial class Migration_v011
+    [Migration("20220818095440_Migration_v1.0.0")]
+    partial class Migration_v100
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("_Abp_DatabaseProvider", EfCoreDatabaseProvider.Sqlite)
-                .HasAnnotation("ProductVersion", "6.0.7");
+                .HasAnnotation("ProductVersion", "6.0.8");
 
             modelBuilder.Entity("Kite.DevOps.Domain.Entities.Administrator", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("AdminName")
                         .HasMaxLength(32)
@@ -52,8 +53,9 @@ namespace Kite.DevOps.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("Kite.DevOps.Domain.Entities.ServerGroup", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
@@ -69,8 +71,9 @@ namespace Kite.DevOps.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("Kite.DevOps.Domain.Entities.ServerInfo", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
@@ -78,8 +81,8 @@ namespace Kite.DevOps.EntityFrameworkCore.Migrations
                     b.Property<int>("DockerComposeVersion")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("GroupId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Host")
                         .HasMaxLength(128)

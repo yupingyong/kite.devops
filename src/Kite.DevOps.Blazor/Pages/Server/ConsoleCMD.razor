@@ -1,4 +1,4 @@
-﻿@page "/Server/Console/{Id:guid}"
+﻿@page "/Server/Console/{Id:int}"
 @layout ConsoleLayout
 
 @using Kite.DevOps.Domain.Server
@@ -18,7 +18,7 @@
 
 @code {
     [Parameter]
-    public Guid Id { get; set; }
+    public int Id { get; set; }
     //控制台输入信息
     private ConcurrentQueue<ConsoleMessageItem> ConsoleMessages { get; set; } = new ConcurrentQueue<ConsoleMessageItem>();
     //命令行文本

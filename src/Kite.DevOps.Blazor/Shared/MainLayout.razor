@@ -40,7 +40,7 @@
 @code {
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (Administrator.Id == Guid.Empty)
+        if (Administrator.Id == 0)
         {
 
             var op = new SwalOption()

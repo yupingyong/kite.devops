@@ -20,13 +20,13 @@ namespace Kite.DevOps.Application.Contracts.Server
         /// </summary>
         /// <param name="id">组ID</param>
         /// <returns></returns>
-        Task<KiteResult<ServerGroupDto>> GetAsync(Guid id);
+        Task<KiteResult<ServerGroupDto>> GetAsync(int id);
         /// <summary>
         /// 删除服务器组
         /// </summary>
         /// <param name="id">组ID</param>
         /// <returns></returns>
-        Task<KiteResult> DeleteAsync(Guid id);
+        Task<KiteResult> DeleteAsync(int id);
         /// <summary>
         /// 更新服务器组信息
         /// </summary>

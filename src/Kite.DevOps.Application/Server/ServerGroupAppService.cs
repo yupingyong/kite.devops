@@ -22,7 +22,7 @@ namespace Kite.DevOps.Application.Server
 
         public async Task<KiteResult> CreateAsync(CreateServerGroupDto createGroup)
         {
-            var model = new ServerGroup(GuidGenerator.Create())
+            var model = new ServerGroup()
             {
                 Created = DateTime.Now,
                 GroupName = createGroup.GroupName
@@ -31,13 +31,13 @@ namespace Kite.DevOps.Application.Server
             return Ok();
         }
 
-        public async Task<KiteResult> DeleteAsync(Guid id)
+        public async Task<KiteResult> DeleteAsync(int id)
         {
             await _repository.DeleteAsync(x=>x.Id==id);
             return Ok();
         }
 
-        public async Task<KiteResult<ServerGroupDto>> GetAsync(Guid id)
+        public async Task<KiteResult<ServerGroupDto>> GetAsync(int id)
         {
             var result = (await _repository.GetQueryableAsync())
                 .Where(x => x.Id == id)

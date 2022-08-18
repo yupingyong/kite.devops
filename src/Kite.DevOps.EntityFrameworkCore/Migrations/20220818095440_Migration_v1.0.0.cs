@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Kite.DevOps.EntityFrameworkCore.Migrations
 {
-    public partial class Migration_v010 : Migration
+    public partial class Migration_v100 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,8 @@ namespace Kite.DevOps.EntityFrameworkCore.Migrations
                 name: "Administrators",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     AdminName = table.Column<string>(type: "TEXT", maxLength: 32, nullable: true),
                     Password = table.Column<string>(type: "TEXT", maxLength: 64, nullable: true),
                     NickName = table.Column<string>(type: "TEXT", maxLength: 64, nullable: true),
@@ -29,7 +30,8 @@ namespace Kite.DevOps.EntityFrameworkCore.Migrations
                 name: "ServerGroups",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     GroupName = table.Column<string>(type: "TEXT", maxLength: 128, nullable: true),
                     Created = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
@@ -42,15 +44,17 @@ namespace Kite.DevOps.EntityFrameworkCore.Migrations
                 name: "ServerInfos",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     ServerName = table.Column<string>(type: "TEXT", maxLength: 512, nullable: true),
-                    GroupId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    GroupId = table.Column<int>(type: "INTEGER", nullable: false),
                     Host = table.Column<string>(type: "TEXT", maxLength: 128, nullable: true),
                     Port = table.Column<int>(type: "INTEGER", nullable: false),
                     UserName = table.Column<string>(type: "TEXT", nullable: true),
                     Password = table.Column<string>(type: "TEXT", maxLength: 128, nullable: true),
                     SystemTag = table.Column<string>(type: "TEXT", maxLength: 64, nullable: true),
                     DockerComposeVersion = table.Column<int>(type: "INTEGER", nullable: false),
+                    Remarks = table.Column<string>(type: "TEXT", maxLength: 512, nullable: true),
                     Created = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>

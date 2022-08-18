@@ -13,7 +13,7 @@ namespace Kite.DevOps.Application.Contracts.Server.Dtos
         /// ID
         /// </summary>
         [Required]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// 组名称
         /// </summary>

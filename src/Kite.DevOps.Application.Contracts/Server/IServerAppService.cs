@@ -22,19 +22,19 @@ namespace Kite.DevOps.Application.Contracts.Server
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        Task<KitePageResult<List<ServerDto>>> GetListAsync(Guid? groupId,string kw = "", int page = 1, int pageSize = 10);
+        Task<KitePageResult<List<ServerDto>>> GetListAsync(int? groupId,string kw = "", int page = 1, int pageSize = 10);
         /// <summary>
         /// 获取服务器详情信息
         /// </summary>
         /// <param name="id">服务器ID</param>
         /// <returns></returns>
-        Task<KiteResult<ServerDto>> GetAsync(Guid id);
+        Task<KiteResult<ServerDto>> GetAsync(int id);
         /// <summary>
         /// 删除服务器
         /// </summary>
         /// <param name="id">服务器ID</param>
         /// <returns></returns>
-        Task<KiteResult> DeleteAsync(Guid id);
+        Task<KiteResult> DeleteAsync(int id);
         /// <summary>
         /// 更新服务器
         /// </summary>

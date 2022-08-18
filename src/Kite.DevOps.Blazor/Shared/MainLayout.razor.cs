@@ -51,7 +51,7 @@ public sealed partial class MainLayout
             {
                 AdminName = "未登录",
                 NickName = "未登录",
-                Id = Guid.Empty
+                Id = 0
             };
         }
         Menus = GetIconSideMenuItems();
@@ -105,13 +105,6 @@ public sealed partial class MainLayout
                             Text = "服务器",
                             Icon = "fa fa-user",
                             Url = "/Server"
-                        }
-                        ,new MenuItem()
-                        {
-                            Text = "控制台",
-                            Icon = "fa fa-user",
-                            Url = $"/Server/Console/Home",
-                            Target="_blank"
                         }
                    }
                }

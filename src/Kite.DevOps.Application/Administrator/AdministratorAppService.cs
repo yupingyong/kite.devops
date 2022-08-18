@@ -28,7 +28,7 @@ namespace Kite.DevOps.Application.Administrator
             //如果账号未初始化则默认初始化一个账号
             if (await _repository.CountAsync() <= 0)
             {
-                await _repository.InsertAsync(new Domain.Entities.Administrator(GuidGenerator.Create())
+                await _repository.InsertAsync(new Domain.Entities.Administrator()
                 {
                     AdminName = "admin",
                     Password = TextHelper.MD5Encrypt("admin"),
@@ -53,13 +53,13 @@ namespace Kite.DevOps.Application.Administrator
             return Ok();
         }
 
-        public async Task<KiteResult> DeleteAsync(Guid id)
+        public async Task<KiteResult> DeleteAsync(int id)
         {
             await _repository.DeleteAsync(x => x.Id == id);
             return Ok();
         }
 
-        public async Task<KiteResult<AdministratorDto>> GetAsync(Guid id)
+        public async Task<KiteResult<AdministratorDto>> GetAsync(int id)
         {
             var result = (await _repository.GetQueryableAsync())
                 .Where(x => x.Id == id)

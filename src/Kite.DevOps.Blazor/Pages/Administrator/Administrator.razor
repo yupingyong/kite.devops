@@ -90,12 +90,12 @@
         base.OnInitialized();
     }
     #region 管理员编辑更新
-    private async void OnUpdateAsync(Guid id)
+    private async void OnUpdateAsync(int id)
     {
         UpdateModel= await GetAsync(id);
         await UpdateModal.Toggle();
     }
-    private async Task<UpdateAdministratorDto> GetAsync(Guid id)
+    private async Task<UpdateAdministratorDto> GetAsync(int id)
     {
         var result = await administratorAppService.GetAsync(id);
         if (result.Code != 0 || result.Data == null)
@@ -122,7 +122,7 @@
         OnQueryAsync();
     }
     #endregion
-    private async Task OnDeleteAsync(Guid id)
+    private async Task OnDeleteAsync(int id)
     {
         var result= await administratorAppService.DeleteAsync(id);
         if (result.Code == 0)

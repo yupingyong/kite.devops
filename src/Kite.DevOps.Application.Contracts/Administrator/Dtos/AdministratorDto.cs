@@ -11,7 +11,7 @@ namespace Kite.DevOps.Application.Contracts.Administrator.Dtos
         /// <summary>
         /// 账号ID
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// 管理员名
         /// </summary>

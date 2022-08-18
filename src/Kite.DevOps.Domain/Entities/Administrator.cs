@@ -8,10 +8,10 @@ using Volo.Abp.Domain.Entities;
 
 namespace Kite.DevOps.Domain.Entities
 {
-    public class Administrator : Entity<Guid>
+    public class Administrator : Entity<int>
     {
         public Administrator() { }
-        public Administrator(Guid id) : base(id)
+        public Administrator(int id) : base(id)
         {
         }
         /// <summary>

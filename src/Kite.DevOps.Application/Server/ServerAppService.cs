@@ -27,7 +27,7 @@ namespace Kite.DevOps.Application.Server
 
         public async Task<KiteResult> CreateAsync(CreateServerDto createServer)
         {
-            var model = new ServerInfo(GuidGenerator.Create())
+            var model = new ServerInfo()
             {
                 Created = DateTime.Now
             };
@@ -36,19 +36,19 @@ namespace Kite.DevOps.Application.Server
             return Ok();
         }
 
-        public async Task<KiteResult> DeleteAsync(Guid id)
+        public async Task<KiteResult> DeleteAsync(int id)
         {
             await _repository.DeleteAsync(x => x.Id == id);
             return Ok();
         }
 
-        public async Task<KiteResult<ServerDto>> GetAsync(Guid id)
+        public async Task<KiteResult<ServerDto>> GetAsync(int id)
         {
             var query = await _serverManager.GetQueryAsync<ServerDto>();
             return Ok(query.FirstOrDefault(x => x.Id == id));
         }
 
-        public async Task<KitePageResult<List<ServerDto>>> GetListAsync(Guid? groupId, string kw = "", int page = 1, int pageSize = 10)
+        public async Task<KitePageResult<List<ServerDto>>> GetListAsync(int? groupId, string kw = "", int page = 1, int pageSize = 10)
         {
             var query = (await _serverManager.GetQueryAsync<ServerDto>())
                 .WhereIf(groupId.HasValue, x => x.GroupId == groupId)

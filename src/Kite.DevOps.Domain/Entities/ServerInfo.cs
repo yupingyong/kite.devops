@@ -12,10 +12,10 @@ namespace Kite.DevOps.Domain.Entities
     /// <summary>
     /// 服务器信息表
     /// </summary>
-    public class ServerInfo : Entity<Guid>
+    public class ServerInfo : Entity<int>
     {
         public ServerInfo() { }
-        public ServerInfo(Guid id) : base(id)
+        public ServerInfo(int id) : base(id)
         {
         }
         /// <summary>
@@ -26,7 +26,7 @@ namespace Kite.DevOps.Domain.Entities
         /// <summary>
         /// 所属服务器组
         /// </summary>
-        public Guid GroupId { get; set; }
+        public int GroupId { get; set; }
         /// <summary>
         /// 服务器主机
         /// </summary>

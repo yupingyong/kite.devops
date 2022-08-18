@@ -12,7 +12,7 @@ namespace Kite.DevOps.Application.Contracts.Server.Dtos
         /// <summary>
         /// ID
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// 服务器名
         /// </summary>
@@ -20,7 +20,7 @@ namespace Kite.DevOps.Application.Contracts.Server.Dtos
         /// <summary>
         /// 所属服务器组
         /// </summary>
-        public Guid GroupId { get; set; }
+        public int GroupId { get; set; }
         /// <summary>
         /// 服务器组名
         /// </summary>

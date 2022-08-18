@@ -76,7 +76,7 @@
                 {
                     AdminName = "未登录",
                     NickName = "未登录",
-                    Id = Guid.Empty
+                    Id = 0
                 };
         }
         //默认添加控制台首页
@@ -114,7 +114,7 @@
     }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (Administrator.Id == Guid.Empty)
+        if (Administrator.Id == 0)
         {
 
             var op = new SwalOption()
