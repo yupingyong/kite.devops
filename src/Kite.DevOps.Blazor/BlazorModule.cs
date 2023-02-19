@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Volo.Abp.Json;
 using Volo.Abp.AspNetCore;
 using Kite.DevOps.Application.Contracts;
