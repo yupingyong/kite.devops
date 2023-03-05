@@ -12,10 +12,10 @@ namespace Kite.DevOps.Domain.Entities
     public class Release : Entity<int>
     {
         /// <summary>
-        /// 发布名称
+        /// 发布标题
         /// </summary>
         [MaxLength(128)]
-        public string Name { get; set; }
+        public string Title { get; set; }
         /// <summary>
         /// 备注信息
         /// </summary>
@@ -26,28 +26,9 @@ namespace Kite.DevOps.Domain.Entities
         /// </summary>
         public bool IsOpen { get; set; }
         /// <summary>
-        /// 所属项目
+        /// 所属应用服务
         /// </summary>
         public int AppId { get; set; }
-        /// <summary>
-        /// 容器镜像名
-        /// </summary>
-        [MaxLength(128)]
-        public string ImageName { get; set; }
-        /// <summary>
-        /// 镜像标签类型
-        /// </summary>
-        public ImageTagTypeEnum ImageTagType { get; set; }
-        /// <summary>
-        /// 镜像标签
-        /// </summary>
-        [MaxLength(64)]
-        public string ImageTag { get; set; }
-        /// <summary>
-        /// 容器名
-        /// </summary>
-        [MaxLength(128)]
-        public string DockerName { get; set; }
        
         /// <summary>
         /// Git配置项ID
@@ -64,20 +45,12 @@ namespace Kite.DevOps.Domain.Entities
         [MaxLength(128)]
         public string GitBranch { get; set; }
         /// <summary>
-        /// Dockerfile路径
-        /// </summary>
-        public string DockerfilePath { get; set; }
-        /// <summary>
-        /// DockerCompose文件路径
-        /// </summary>
-        public string DockerComposeFilePath { get; set; }
-        /// <summary>
-        /// 关联服务器ID
-        /// </summary>
-        public int ServerId { get; set; }
-        /// <summary>
         /// 创建时间
         /// </summary>
         public DateTime Created { get; set; }
+        /// <summary>
+        /// 更新时间
+        /// </summary>
+        public DateTime Updated { get; set; }
     }
 }

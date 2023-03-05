@@ -11,6 +11,11 @@ namespace Kite.DevOps.EntityFrameworkCore
     {
 
         #region Entities from the modules
+        public DbSet<ReleaseBuild> ReleaseBuilds { get; set; }
+        public DbSet<ReleaseParameter> ReleaseParameters { get; set; }
+        public DbSet<Release> Releases { get; set; }
+        public DbSet<ApplicationService> ApplicationServices { get; set; }
+        public DbSet<Project> Projects { get; set; }
         public DbSet<ServerInfo> ServerInfos { get; set; }
         public DbSet<ServerGroup> ServerGroups { get; set; }
         public DbSet<Administrator> Administrators { get; set; }

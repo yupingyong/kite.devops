@@ -10,7 +10,7 @@
     <PackageReference Include="Mapster" Version="7.3.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
     <PackageReference Include="SSH.NET" Version="2020.0.2" />
-    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="7.0.1" />
+    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="7.0.2" />
   </ItemGroup>
 
 </Project>

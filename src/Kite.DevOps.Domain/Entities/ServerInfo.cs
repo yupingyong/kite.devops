@@ -47,11 +47,6 @@ namespace Kite.DevOps.Domain.Entities
         [MaxLength(64)]
         public string SystemTag { get; set; }
         /// <summary>
-        /// 容器编排版本
-        /// </summary>
-
-        public DockerComposeVersionEnum DockerComposeVersion { get; set; }
-        /// <summary>
         /// 备注信息
         /// </summary>
         [MaxLength(512)]
